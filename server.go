@@ -1,11 +1,10 @@
 package main
 
 import (
-	"log"
 	"os"
 
 	"github.com/armon/go-socks5"
-	"github.com/caarlos0/env"
+	"github.com/caarlos0/env/v6"
 )
 
 type params struct {
@@ -19,13 +18,11 @@ func main() {
 	cfg := params{}
 	err := env.Parse(&cfg)
 	if err != nil {
-		log.Printf("%+v\n", err)
+		println(err)
 	}
 
 	//Initialize socks5 config
-	socsk5conf := &socks5.Config{
-		Logger: log.New(os.Stdout, "", log.LstdFlags),
-	}
+	socsk5conf := &socks5.Config{}
 
 	if cfg.User+cfg.Password != "" {
 		creds := socks5.StaticCredentials{
@@ -37,11 +34,11 @@ func main() {
 
 	server, err := socks5.New(socsk5conf)
 	if err != nil {
-		log.Fatal(err)
+		panic(err)
 	}
 
-	log.Printf("Start listening proxy service on port %s\n", cfg.Port)
+	println("Start listening proxy service on port " + cfg.Port)
 	if err := server.ListenAndServe("tcp", ":"+cfg.Port); err != nil {
-		log.Fatal(err)
+		panic(err)
 	}
 }

@@ -3,6 +3,12 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased - available on :latest tag for docker image]
 
+## [v0.0.4] - 2022-11-03
+### Changed
+- Update golang to 1.19.1
+- Update dependencies to their latest version
+- Repalce scratch image with gcr.io/distroless/static:nonroot image
+
 ## [v0.0.3] - 2021-07-07
 ### Added
 - TZ env varible support for scratch image
